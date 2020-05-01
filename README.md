@@ -13,7 +13,8 @@ This plugin automatically generates cache-busting hashed versions for both the _
 For _static_ files, it does this by creating a `scan` command that you can run on every deployment:
 
 ```sh
-./craft file-versioner/scan
+./craft file-versioner/static-files/scan
+./craft file-versioner/asset-files/scan
 ```
 
 Which can be accessed in your template via a `v` template filter:
@@ -121,7 +122,7 @@ This configuration file allows you to control you versioning on a per-environmen
 
 You should also add the `@webroot/versions` folder to your `.gitignore` for example:
 
-```
+```sh
 ...
 web/versions
 ```
