@@ -1,0 +1,45 @@
+{
+    "name": "weareferal/file-versioner",
+    "description": "Automatically create cache-busting versions of all your files",
+    "type": "craft-plugin",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "files",
+        "cache",
+        "version",
+        "versioning"
+    ],
+    "support": {
+        "docs": "https://github.com/weareferal/file-versioner/blob/master/README.md",
+        "issues": "https://github.com/weareferal/file-versioner/issues"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Timmy O'Mahony",
+            "homepage": "https://weareferal.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+            "weareferal\\fileversioner\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "File Versioner",
+        "handle": "file-versioner",
+        "changelogUrl": "https://raw.githubusercontent.com/weareferal/file-versioner/master/CHANGELOG.md",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "components": {
+            "scan": "weareferal\\fileversioner\\services\\Scan"
+        },
+        "class": "weareferal\\fileversioner\\FileVersioner"
+    }
+}

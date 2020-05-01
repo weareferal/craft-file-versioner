@@ -1,0 +1,75 @@
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting, file) -%}
+    {%- set configArray = craft.app.config.getConfigFromFile(file) -%}
+    {%- if configArray[setting] is defined -%}
+        {{- "This is being overridden by the `#{setting}` setting in the `config/#{file}.php` file." |raw }}
+    {%- else -%}
+        {{ false }}
+    {%- endif -%}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+{{ forms.lightswitchField({
+    first: true,
+    label: "Static File Versioning Enabled"|t('file-versioner'),
+    instructions: "Enable versioning of static files"|t('file-versioner'),
+    name: 'staticVersioningEnabled',
+    id: 'staticVersioningEnabled',
+    on: settings.staticVersioningEnabled,
+    errors: settings.getErrors('staticVersioningEnabled'),
+    warning: configWarning('staticVersioningEnabled', 'file-versioner')
+}) }}
+
+{{ forms.autosuggestField({
+    label: "Static Versioning Prefix"|t('file-versioner'),
+    instructions: "The folder within your webroot to store versioned static files"|t('file-versioner'),
+    name: 'staticVersioningPrefix',
+    id: 'staticVersioningPrefix',
+    suggestEnvVars: true,
+    suggestAliases: true,
+    value: settings.staticVersioningPrefix,
+    placeholder: "versions",
+    errors: settings.getErrors('staticVersioningPrefix'),
+    warning: configWarning('staticVersioningPrefix', 'file-versioner')
+}) }}
+
+{{ forms.autosuggestField({
+    label: "Static Versioning Extensions"|t('file-versioner'),
+    instructions: "A comma-separated list of extensions to target when versioning static files"|t('file-versioner'),
+    name: 'staticVersioningExtensions',
+    id: 'staticVersioningExtensions',
+    suggestEnvVars: true,
+    suggestAliases: true,
+    value: settings.staticVersioningExtensions,
+    placeholder: "js,css,jpg,jpeg,png",
+    errors: settings.getErrors('staticVersioningExtensions'),
+    warning: configWarning('staticVersioningExtensions', 'file-versioner')
+}) }}
+
+<hr>
+
+{{ forms.lightswitchField({
+    first: true,
+    label: "Asset File Versioning Enabled"|t('file-versioner'),
+    instructions: "Enable automatic versioning of uploaded asset files"|t('file-versioner'),
+    name: 'assetVersioningEnabled',
+    id: 'assetVersioningEnabled',
+    on: settings.assetVersioningEnabled,
+    errors: settings.getErrors('assetVersioningEnabled'),
+    warning: configWarning('assetVersioningEnabled', 'file-versioner')
+}) }}
+
+{{ forms.autosuggestField({
+    label: "Asset Versioning Extensions"|t('file-versioner'),
+    instructions: "A comma-separated list of extensions to automatically version"|t('file-versioner'),
+    name: 'assetVersioningExtensions',
+    id: 'assetVersioningExtensions',
+    suggestEnvVars: true,
+    suggestAliases: true,
+    value: settings.assetVersioningExtensions,
+    placeholder: "js,css,jpg,jpeg,png",
+    errors: settings.getErrors('assetVersioningExtensions'),
+    warning: configWarning('assetVersioningExtensions', 'file-versioner')
+}) }}
